@@ -4,15 +4,20 @@
   become: yes
 
   tasks:
-    - name: Install Docker (if not already installed)
-      apt:
-        name: docker.io
+    - name: Install Docker
+      package:
+        name: docker
         state: present
-        update_cache: yes
 
-    - name: Pull latest Docker image from Docker Hub
+    - name: Start Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+
+    - name: Pull latest Docker image
       shell: docker pull nini117/html-docker-app
 
-    - name: Run Docker container
+    - name: Run container
       shell: docker run -d -p 80:80 --name htmlapp --rm nini117/html-docker-app
       ignore_errors: yes
