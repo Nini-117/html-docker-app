@@ -9,15 +9,17 @@
         name: docker
         state: present
 
-    - name: Start Docker service
+    - name: Start and enable Docker service
       service:
         name: docker
         state: started
         enabled: yes
 
+    - name: Stop and remove any existing container
+      shell: docker rm -f htmlapp || true
+
     - name: Pull latest Docker image
       shell: docker pull nini117/html-docker-app
 
-    - name: Run container
-      shell: docker run -d -p 80:80 --name htmlapp --rm nini117/html-docker-app
-      ignore_errors: yes
+    - name: Run new container
+      shell: docker run -d -p 80:80 --name htmlapp nini117/html-docker-app
