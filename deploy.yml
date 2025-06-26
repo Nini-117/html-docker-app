@@ -1,0 +1,18 @@
+---
+- name: Deploy HTML app with Docker
+  hosts: webserver
+  become: yes
+
+  tasks:
+    - name: Install Docker (if not already installed)
+      apt:
+        name: docker.io
+        state: present
+        update_cache: yes
+
+    - name: Pull latest Docker image from Docker Hub
+      shell: docker pull nini117/html-docker-app
+
+    - name: Run Docker container
+      shell: docker run -d -p 80:80 --name htmlapp --rm nini117/html-docker-app
+      ignore_errors: yes
