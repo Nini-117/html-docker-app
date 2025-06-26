@@ -19,7 +19,7 @@
       shell: docker rm -f htmlapp || true
 
     - name: Pull latest Docker image
-      shell: docker pull nini117/html-docker-app
+      shell: docker pull nithyasri117/html-docker-app
 
     - name: Run new container
-      shell: docker run -d -p 80:80 --name htmlapp nini117/html-docker-app
+      shell: docker run -d -p 80:80 --name htmlapp nithyasri117/html-docker-app
